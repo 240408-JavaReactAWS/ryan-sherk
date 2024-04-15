@@ -12,38 +12,38 @@ public class Employee {
     @Column(name = "employeeId")
     private int id;
 
-    private String firstname;
+    private String username;
 
-    private String lastname;
+    private String password;
 
     public Employee() {
     }
 
-    public Employee(String lastname, String firstname, int id) {
-        this.lastname = lastname;
-        this.firstname = firstname;
+    public Employee( String username, String password, int id) {
+        this.password = password;
+        this.username = username;
         this.id = id;
     }
 
-    public Employee(String firstname, String lastname) {
-        this.firstname = firstname;
-        this.lastname = lastname;
+    public Employee(String username, String password) {
+        this.username = username;
+        this.password = password;
     }
 
-    public String getLastname() {
-        return lastname;
+    public String getPassword() {
+        return password;
     }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public String getFirstname() {
-        return firstname;
+    public String getUsername() {
+        return username;
     }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public int getId() {
@@ -59,20 +59,20 @@ public class Employee {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Employee employee = (Employee) o;
-        return id == employee.id && Objects.equals(firstname, employee.firstname) && Objects.equals(lastname, employee.lastname);
+        return id == employee.id && Objects.equals(username, employee.username) && Objects.equals(password, employee.password);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstname, lastname);
+        return Objects.hash(id, username, password);
     }
 
     @Override
     public String toString() {
         return "Employee{" +
                 "id=" + id +
-                ", firstname='" + firstname + '\'' +
-                ", lastname='" + lastname + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
                 '}';
     }
 }
