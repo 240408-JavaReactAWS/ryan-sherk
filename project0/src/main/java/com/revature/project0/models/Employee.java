@@ -9,9 +9,11 @@ import java.util.Objects;
 public class Employee {
 
     @Id
-    @Column(name = "employeeId")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "employeeId", nullable = false, unique = true)
     private int id;
 
+    @Column(nullable = false, unique = true)
     private String username;
 
     private String password;

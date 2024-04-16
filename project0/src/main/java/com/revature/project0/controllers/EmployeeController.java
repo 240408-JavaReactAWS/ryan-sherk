@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.springframework.http.HttpStatus.*;
@@ -26,7 +27,18 @@ public class EmployeeController {
      */
     @GetMapping
     public ResponseEntity<List<Employee>> getAllEmployees() {
-        return null;
+        try {
+            // Select all persons and store the retrieved values in the object personList
+            ArrayList<Employee> employeeList = new ArrayList<>(empService.getAllEmployees());
+            // If no person found, return HttpStatus NO_CONTENT
+            if (employeeList.isEmpty()) {
+                return new ResponseEntity<>(NO_CONTENT);
+            }
+            // If person/s are found, return object personList with the list of the persons selected from table Person
+            return new ResponseEntity<>(employeeList, OK);
+        } catch (Exception ex) {
+            return new ResponseEntity<>(NO_CONTENT);
+        }
     }
 
     /*
@@ -35,7 +47,17 @@ public class EmployeeController {
      */
     @GetMapping("{id}")
     public ResponseEntity<Employee> getEmployeeById(@PathVariable int id) {
-        return null;
+        Employee employee;
+        try {
+            employee = empService.getEmployeeById(id);
+        } catch (Exception e) {
+            // In case person is not found, return HttpStatus NOT_FOUND
+            return new ResponseEntity<>(NOT_FOUND);
+        }
+
+        // If person with the id is found, return all values from this person
+        return new ResponseEntity<>(employee, OK);
+
     }
 
     /*
