@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static org.springframework.http.HttpStatus.*;
+
 @RestController
 @RequestMapping("/employees")
 public class EmployeeController {
@@ -42,7 +44,13 @@ public class EmployeeController {
      */
     @PostMapping
     public ResponseEntity<Employee> createEmployee(@RequestBody Employee employee) {
-        return null;
+        Employee created;
+        try {
+            created = empService.createNewEmployee(employee);
+        } catch (Exception e) {
+            return new ResponseEntity<>(BAD_REQUEST);
+        }
+        return new ResponseEntity<>(created, OK);
     }
 
     /*
@@ -51,6 +59,15 @@ public class EmployeeController {
      */
     @PatchMapping("{id}")
     public ResponseEntity<Employee> updatePassword(@PathVariable int id, @RequestBody String password) {
-        return null;
+        Employee updated;
+        if (id <= 0 || password.isEmpty()) {
+            return new ResponseEntity<>(BAD_REQUEST);
+        }
+        try {
+            updated = empService.updatePassword(id, password);
+        } catch (Exception e) {
+            return  new ResponseEntity<>(NOT_FOUND);
+        }
+        return new ResponseEntity<>(updated, OK);
     }
 }
