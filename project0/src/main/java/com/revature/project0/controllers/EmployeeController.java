@@ -80,7 +80,7 @@ public class EmployeeController {
     returns the updated Employee
      */
     @PatchMapping("{id}")
-    public ResponseEntity<Employee> updatePassword(@PathVariable int id, @RequestBody String password) {
+    public ResponseEntity<Employee> updatePassword(@PathVariable int id, @RequestParam(value="pass") String password) {
         Employee updated;
         if (id <= 0 || password.isEmpty()) {
             return new ResponseEntity<>(BAD_REQUEST);
