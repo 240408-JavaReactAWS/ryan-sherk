@@ -72,7 +72,7 @@ public class EmployeeController {
         } catch (Exception e) {
             return new ResponseEntity<>(BAD_REQUEST);
         }
-        return new ResponseEntity<>(created, OK);
+        return new ResponseEntity<>(created, CREATED);
     }
 
     /*
@@ -91,5 +91,19 @@ public class EmployeeController {
             return  new ResponseEntity<>(NOT_FOUND);
         }
         return new ResponseEntity<>(updated, OK);
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<Employee> deleteEmployee(@PathVariable int id) {
+        Employee deleted;
+        if (id <= 0) {
+            return new ResponseEntity<>(BAD_REQUEST);
+        }
+        try {
+            deleted = empService.deleteEmployee(id);
+        } catch (Exception e) {
+            return  new ResponseEntity<>(NOT_FOUND);
+        }
+        return new ResponseEntity<>(deleted, OK);
     }
 }

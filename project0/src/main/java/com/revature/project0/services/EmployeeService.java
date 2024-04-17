@@ -50,4 +50,13 @@ public class EmployeeService {
         empDAO.save(employee.get());
         return employee.get();
     }
+
+    public Employee deleteEmployee(int id) {
+        Optional<Employee> employee = empDAO.findById(id);
+        if (employee.isEmpty()) {
+            throw new NoSuchElementException("There was no employee found");
+        }
+        empDAO.deleteById(id);
+        return employee.get();
+    }
 }
