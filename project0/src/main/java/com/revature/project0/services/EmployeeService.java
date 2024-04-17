@@ -37,8 +37,7 @@ public class EmployeeService {
         if (optionalEmployee.isPresent()) {
             throw new IllegalArgumentException("Username already exists");
         }
-        empDAO.save(employee);
-        return null;
+        return empDAO.save(employee);
     }
 
     public Employee updatePassword(int id, String password) {
